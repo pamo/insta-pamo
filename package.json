@@ -1,21 +1,25 @@
 {
   "name": "insta-pamo",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Server for Pamela Ocampo's instagram feed",
-  "main": "server.js",
-  "scripts": {
-    "start": "NODE_ENV=development nodemon server.js"
-  },
+  "main": "index.js",
   "author": "Pamela Ocampo",
-  "license": "ISC",
-  "dependencies": {
-    "config": "^1.13.0",
-    "hapi": "^7.5.3",
-    "instagram-node": "git://github.com/totemstech/instagram-node#master",
-    "lodash": "^3.9.1"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pamo/insta-pamo.git"
   },
-  "devDependencies": {
-    "nodemon": "^1.3.7"
+  "keywords": [
+    "hapi",
+    "instagram",
+    "javascript"
+  ],
+  "homepage": "https://insta-pamo.herokuapp.com/",
+  "dependencies": {
+    "hapi": "^8.8.1",
+    "instagram-node": "^0.5.8",
+    "lodash": "^3.10.1",
+    "mongoose": "^4.2.7"
   }
 }
