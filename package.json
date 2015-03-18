@@ -20,6 +20,7 @@
     "hapi": "^8.8.1",
     "instagram-node": "^0.5.8",
     "lodash": "^3.10.1",
-    "mongoose": "^4.2.7"
-  }
+    "mongoose": "^4.2.7",
+    "hapi-mongodb": "^2.3.0"
+  },
 }
