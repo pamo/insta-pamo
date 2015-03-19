@@ -1,8 +1,14 @@
 {
+<<<<<<< d3d6009f6c7b90f145e160baef91a225c0545654
   "name": "insta-pamo",
   "private": true,
   "version": "2.0.0",
   "description": "Server for Pamela Ocampo's instagram feed",
+=======
+  "name": "hapi-todo",
+  "version": "1.0.0",
+  "description": "A Todo Backend implementation using Hapi.js and MongoDB",
+>>>>>>> Added a readme for funsies
   "main": "index.js",
   "author": "Pamela Ocampo",
   "license": "MIT",
