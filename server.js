@@ -4,7 +4,6 @@ var config      = require('config'),
     Hapi        = require('hapi'),
     server      = new Hapi.Server(5000, { cors: true });
 
-
 function Photo(data){
       return {
         coordinates: [ data.location.longitude, data.location.latitude ],
@@ -12,8 +11,12 @@ function Photo(data){
         id: data.location.id, 
         imageSrc: data.images.standard_resolution, 
         url: data.link, 
-        description: data.caption.text
+        description: formatDescription(data.caption.text)
       }
+}
+
+function formatDescription(text){
+  return _.dropRight(_.drop(text.slice(13, text.length).split('.')));
 }
 
 var nameDrop = function (request, reply) {
