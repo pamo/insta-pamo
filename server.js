@@ -1,6 +1,5 @@
 var config      = require('config'),
     _           = require('lodash'),
-    instaConfig = config.get('Instagram'),
     instagram = require('instagram-node').instagram(),
     Hapi        = require('hapi'),
     port        = process.env.PORT || 8080,
@@ -26,6 +25,7 @@ var nameDrop = function (request, reply) {
 }
 
 function configureInstagram(){
+  var instaConfig = config.get('Instagram');
   var tokens = {
     client_id: process.env.CLIENT_ID || instaConfig.client.id,
     client_secret: process.env.CLIENT_SECRET || instaConfig.client.secret
@@ -55,7 +55,8 @@ var getInstagramFeed = function (request, reply) {
         });
       }
 
-      instagram.user_media_recent(instaConfig.user_id, getNext);
+      var userId = process.env.USER_ID || instaConfig.user_id; 
+      instagram.user_media_recent(userId, getNext);
     }
     console.log(err);
   }
