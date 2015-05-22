@@ -1,8 +1,10 @@
 var config      = require('config'),
     _           = require('lodash'),
     instaConfig = config.get('Instagram'),
+    instagram = require('instagram-node').instagram(),
     Hapi        = require('hapi'),
-    server      = new Hapi.Server(5000, { cors: true });
+    port        = process.env.PORT || 8080,
+    server      = new Hapi.Server(port, { cors: true });
 
 function Photo(data){
       return {
@@ -23,29 +25,40 @@ var nameDrop = function (request, reply) {
   reply('Pamela Ocampo <a href="http://likescoffee.com">likes coffee.</a>');
 }
 
+function configureInstagram(){
+  var tokens = {
+    client_id: process.env.CLIENT_ID || instaConfig.client.id,
+    client_secret: process.env.CLIENT_SECRET || instaConfig.client.secret
+  };
+  instagram.use(tokens);
+}
 var getInstagramFeed = function (request, reply) { 
-  instagram = require('instagram-node').instagram();
-  instagram.use(instaConfig.client);
   var images = [];
+  configureInstagram();
 
   var getNext = function(err, medias, pagination, remaining, limit){
-    if(pagination.next){
-      for (var i = 0; i < medias.length; i++){
-        if(medias[i]['tags'].indexOf(request.params.tag) > -1){
-          photo = new Photo(medias[i]);
-          images.push(photo);
+    if(!err){
+      console.log('getting medias');
+      if(pagination.next){
+        for (var i = 0; i < medias.length; i++){
+          if(medias[i]['tags'].indexOf(request.params.tag) > -1){
+            photo = new Photo(medias[i]);
+            console.log(photo);
+            images.push(photo);
+          }
         }
+        pagination.next(getNext);
       }
-      pagination.next(getNext);
-    }
-    else {
-      reply({ 
-        photos: _.flatten(images)
-      });
-    }
-  }
+      else {
+        reply({ 
+          photos: _.flatten(images)
+        });
+      }
 
-  instagram.user_media_recent(instaConfig.user_id, getNext);
+      instagram.user_media_recent(instaConfig.user_id, getNext);
+    }
+    console.log(err);
+  }
 }
 
 // Routes
