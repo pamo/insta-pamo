@@ -35,9 +35,12 @@ function configureInstagram(){
 var getInstagramFeed = function (request, reply) { 
   var images = [];
   configureInstagram();
+  var userId = process.env.USER_ID || instaConfig.user_id; 
 
   var getNext = function(err, medias, pagination, remaining, limit){
-    if(!err){
+    if(err) {
+      server.log(err);
+    } else {
       console.log('getting medias');
       if(pagination.next){
         for (var i = 0; i < medias.length; i++){
@@ -54,12 +57,10 @@ var getInstagramFeed = function (request, reply) {
           photos: _.flatten(images)
         });
       }
-
-      var userId = process.env.USER_ID || instaConfig.user_id; 
-      instagram.user_media_recent(userId, getNext);
     }
-    console.log(err);
   }
+
+  instagram.user_media_recent(userId, getNext);
 }
 
 // Routes
