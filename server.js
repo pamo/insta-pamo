@@ -3,7 +3,8 @@ var config      = require('config'),
     instagram = require('instagram-node').instagram(),
     Hapi        = require('hapi'),
     port        = process.env.PORT || 8080,
-    server      = new Hapi.Server(port, { cors: true });
+    server      = new Hapi.Server(port, { cors: true }),
+    instaConfig = config.get('Instagram');
 
 function Photo(data){
       return {
@@ -20,22 +21,21 @@ function formatDescription(text){
   return _.dropRight(_.drop(text.slice(13, text.length).split('.')));
 }
 
-var nameDrop = function (request, reply) {
+var pageRedirect = function (request, reply) {
   reply('Pamela Ocampo <a href="http://likescoffee.com">likes coffee.</a>');
 }
 
 function configureInstagram(){
-  var instaConfig = config.get('Instagram');
   var tokens = {
     client_id: process.env.CLIENT_ID || instaConfig.client.id,
     client_secret: process.env.CLIENT_SECRET || instaConfig.client.secret
   };
+
   instagram.use(tokens);
 }
 var getInstagramFeed = function (request, reply) { 
   var images = [];
   configureInstagram();
-  var userId = process.env.USER_ID || instaConfig.user_id; 
 
   var getNext = function(err, medias, pagination, remaining, limit){
     if(err) {
@@ -60,12 +60,12 @@ var getInstagramFeed = function (request, reply) {
     }
   }
 
-  instagram.user_media_recent(userId, getNext);
+  instagram.user_media_recent(instaConfig.user_id, getNext);
 }
 
 // Routes
-server.route({ method: 'GET', path: '/instagram/{tag}', handler: getInstagramFeed });
-server.route({ method: 'GET', path: '/', handler: nameDrop });
+server.route({ method: 'GET', path: '/tagged/{tag}', handler: getInstagramFeed });
+server.route({ method: 'GET', path: '/', handler: pageRedirect });
 
 // Start Server
 server.start(function () {

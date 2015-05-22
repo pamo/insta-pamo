@@ -5,7 +5,7 @@
   "description": "Server for Pamela Ocampo's instagram feed",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "NODE_ENV=development nodemon server.js"
   },
   "author": "Pamela Ocampo",
   "license": "ISC",
