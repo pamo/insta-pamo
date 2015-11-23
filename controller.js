@@ -1,11 +1,5 @@
 var Photo        = require('./photo.js').Photo;
 
-var addUrl = function(server, photo){
-   var baseUrl = 'http://' + server.host;
-   photo.url = baseUrl + '/' + photo._id;
-   return photo;
-}
-
 var save = function(request, reply){
    photo = new Photo();
    photo.title = request.payload.title;
@@ -13,8 +7,7 @@ var save = function(request, reply){
 
    photo.save(function (err) {
     if (!err) {
-      var response = addUrl(request.info, photo);
-      reply(response);
+      reply(photo);
     } else {
       reply(Hapi.error.internal('Internal MongoDB error', err));
     }
@@ -24,8 +17,7 @@ var save = function(request, reply){
 var update = function(request, reply){
    Photo.findOneAndUpdate(request.params.id, request.payload, function (err, photo) {
     if (!err) {
-      var response = addUrl(request.info, photo);
-      reply(response);
+      reply(photo);
     } else {
       reply(Hapi.error.internal('Internal MongoDB error', err));
     }
@@ -36,23 +28,20 @@ var getAll = function(request, reply){
    var photosWithUrl = [];
    Photo.find({}, function (err, photos) {
       if (!err) {
-	       for(i in photos){
-		 photosWithUrl.push(addUrl(request.info, photos[i]));
-	       }
-	 reply(photosWithUrl);
+	 reply(photos);
       } else {
-        reply(err);
+	reply(err);
       }
    });
 };
 
 var getById = function(request, reply){
   Photo.findById(request.params.id, function(err, photo){
-      if (err){
-	       reply(err);
-      }
-      var response = addUrl(request.info, photo);
-      reply(response);
+      if (!err){
+	       reply(photo);
+      } else {
+	reply(err);
+    }
    });
 };
 
