@@ -28,13 +28,13 @@ var transformDescription = function(description){
 }
 
 var savePhoto = function(data){
-  photo = new Photo();
-  var saveResult = photo.update({id: data.id}, data, {upsert: true});
-  if(!saveResult.hasWriteError()){
-    console.log('Saved', photo);
-  } else {
-    console.log(saveResult.writeError);
-  }
+  Photo.findOneAndUpdate({id: data.id}, data, {upsert: true}, function (err, savedPhoto) {
+    if (!err) {
+      console.log('Saved new photo!', savedPhoto);
+    } else {
+      console.log('Internal MongoDB error', err);
+    }
+  });
 }
 
 
