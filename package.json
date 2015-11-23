@@ -25,6 +25,7 @@
   "dependencies": {
     "hapi": "^8.4.0",
     "instagram-node": "^0.5.8",
+    "lodash": "^3.10.1",
     "mongoose": "^3.8.25"
   },
   "devDependencies": {

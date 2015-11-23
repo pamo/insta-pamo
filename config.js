@@ -9,8 +9,8 @@ var config = {
     },
     instagram: {
       tokens: {
-	"client_id": process.env.instagram_client_id || "",
-	"client_secret": process.env.instagram_client_secret || ""
+	"client_id": process.env.INSTAGRAM_CLIENT_ID,
+	"client_secret": process.env.INSTAGRAM_CLIENT_SECRET
       },
       query: {
 	"user_id": "30792403",

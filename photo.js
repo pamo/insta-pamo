@@ -35,4 +35,4 @@ schema.set('toJSON', {
   }
 });
 
-module.exports = mongoose.model('Photo', schema);
+module.exports = Mongoose.model('Photo', schema);

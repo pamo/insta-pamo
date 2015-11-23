@@ -1,4 +1,5 @@
 var controller = require('./controller.js');
+var instagramController = require('./instagramController.js');
 
 exports.register = function(server, options, next) {
     server.route({
@@ -35,6 +36,12 @@ exports.register = function(server, options, next) {
 	method: 'DELETE',
 	path: '/{id}',
 	handler: controller.deleteById
+    });
+
+    server.route({
+	method: 'GET',
+	path: '/fetchAndSaveFromInstagram',
+	handler: instagramController.fetchAndSave
     });
 
     next();
