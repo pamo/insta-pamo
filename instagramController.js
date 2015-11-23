@@ -5,8 +5,9 @@ var Photo        = require('./photo.js').Photo;
 
 instagram.use(instaConfig.tokens);
 
-var fetch = function(){
+var fetch = function(request, reply){
   instagram.user_media_recent(instaConfig.query.user_id, getNextPage);
+  reply("Fetched #cafefront photos and saved to a collection");
 }
 var getNextPage = function(err, medias, pagination, remaining, limit){
   if(err) {
