@@ -2,23 +2,36 @@ var Mongoose = require('mongoose');
 var Schema = Mongoose.Schema;
 
 var schema = new Schema({
-  attribution: Schema.Types.Mixed,
-  tags: [String],
-  location: Schema.Types.Mixed,
-  comments: Schema.Types.Mixed,
-  filter: String,
+  tags: [],
+  location: {
+    latitude: Number,
+    name: String,
+    longitude: Number,
+    id: Number
+  },
   created_time: Number,
   link: String,
-  likes: Schema.Types.Mixed,
-  images: Schema.Types.Mixed,
-  users_in_photo: Array,
-  caption: Schema.Types.Mixed,
-  type: String,
+  likes: {
+    count: Number
+  },
+  images: {
+    low_resolution: {
+      url: String
+    },
+    standard_resolution: {
+      url: String
+    },
+    thumbnail: {
+      url: String
+    }
+  },
+  caption: {
+    text: String
+  },
   id: {
     type: String,
-    unique: true
-  },
-  user: Schema.Types.Mixed
+    unique: false
+  }
 });
 
 schema.set('toJSON', {
@@ -35,4 +48,6 @@ schema.set('toJSON', {
   }
 });
 
-module.exports = Mongoose.model('Photo', schema);
+module.exports = {
+  Photo: Mongoose.model('Photo', schema)
+}

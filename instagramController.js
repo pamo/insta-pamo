@@ -4,21 +4,21 @@ var instagram = module.exports = require('instagram-node').instagram();
 var Photo        = require('./photo.js').Photo;
 
 instagram.use(instaConfig.tokens);
-var fetchAndSave = function(){
-  instagram.user_media_recent(instaConfig.user_id, getNextPage);
+
+var fetch = function(){
+  instagram.user_media_recent(instaConfig.query.user_id, getNextPage);
 }
 var getNextPage = function(err, medias, pagination, remaining, limit){
   if(err) {
-      console.err(err);
+      console.log(err);
     } else if(pagination.next){
-
       for (var i = 0; i < medias.length; i++){
-	 if(medias[i]['tags'].indexOf(request.params.tag) > -1){
-	   reply(savePhoto(medias[i]));
+	 if(medias[i]['tags'].indexOf(instaConfig.query.tag) > -1){
+	   console.log(medias[i]);
+	   savePhoto(medias[i]);
 	 }
        }
-       pagination.next(getNext);
-
+       pagination.next(getNextPage);
     }
 
 }
@@ -28,19 +28,20 @@ var transformDescription = function(description){
 }
 
 var savePhoto = function(data){
-   photo = new Photo();
+   photo = new Photo(data);
+
    photo.save(function (err) {
     if (!err) {
-      reply('Saved new photo!', photo.toJSON());
+      console.log('Saved new photo!', photo);
     } else {
-      reply(Hapi.error.internal('Internal MongoDB error', err));
+      console.log('Internal MongoDB error', err);
     }
    });
 }
 
 
 var instagramController = {
-    fetchAndSave: fetchAndSave
+    fetchAndSave: fetch
 }
 
 module.exports = instagramController;
