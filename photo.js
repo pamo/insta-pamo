@@ -30,7 +30,7 @@ var schema = new Schema({
   },
   id: {
     type: String,
-    unique: false
+    unique: true
   }
 });
 
