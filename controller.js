@@ -1,19 +1,19 @@
-var Todo        = require('./todo.js').Todo;
+var Photo        = require('./photo.js').Photo;
 
-var addUrl = function(server, todo){
+var addUrl = function(server, photo){
    var baseUrl = 'http://' + server.host;
-   todo.url = baseUrl + '/' + todo._id;
-   return todo;
+   photo.url = baseUrl + '/' + photo._id;
+   return photo;
 }
 
 var save = function(request, reply){
-   todo = new Todo();
-   todo.title = request.payload.title;
-   todo.order = request.payload.order;
+   photo = new Photo();
+   photo.title = request.payload.title;
+   photo.order = request.payload.order;
 
-   todo.save(function (err) {
+   photo.save(function (err) {
     if (!err) {
-      var response = addUrl(request.info, todo);
+      var response = addUrl(request.info, photo);
       reply(response);
     } else {
       reply(Hapi.error.internal('Internal MongoDB error', err));
@@ -22,9 +22,9 @@ var save = function(request, reply){
 };
 
 var update = function(request, reply){
-   Todo.findOneAndUpdate(request.params.id, request.payload, function (err, todo) {
+   Photo.findOneAndUpdate(request.params.id, request.payload, function (err, photo) {
     if (!err) {
-      var response = addUrl(request.info, todo);
+      var response = addUrl(request.info, photo);
       reply(response);
     } else {
       reply(Hapi.error.internal('Internal MongoDB error', err));
@@ -33,40 +33,40 @@ var update = function(request, reply){
 };
 
 var getAll = function(request, reply){
-   var todosWithUrl = [];
-  Todo.find({}, function (err, todos) {
+   var photosWithUrl = [];
+   Photo.find({}, function (err, photos) {
       if (!err) {
-	       for(i in todos){
-		 todosWithUrl.push(addUrl(request.info, todos[i]));
+	       for(i in photos){
+		 photosWithUrl.push(addUrl(request.info, photos[i]));
 	       }
-	 reply(todosWithUrl);
+	 reply(photosWithUrl);
       } else {
-	reply(err);
+        reply(err);
       }
    });
 };
 
 var getById = function(request, reply){
-   Todo.findById(request.params.id, function(err, todo){
+  Photo.findById(request.params.id, function(err, photo){
       if (err){
 	       reply(err);
       }
-      var response = addUrl(request.info, todo);
+      var response = addUrl(request.info, photo);
       reply(response);
    });
 };
 
 var deleteAll = function(request, reply) {
-   Todo.remove({}, function (err, todos) {
+  Photo.remove({}, function (err, photos) {
        if (err) return reply(Hapi.error.internal('Internal MongoDB error', err));
-       return reply("Deleted all todos");
+       return reply("Deleted all photos");
     });
 };
 
 var deleteById = function(request, reply) {
-    Todo.findById(request.params.id, function (err, todo){
+  Photo.findById(request.params.id, function (err, photo){
         if (err) return reply(Hapi.error.internal('Internal MongoDB error', err));
-        todo.remove();
+	photo.remove();
         reply("Record Deleted");
     });
 };
@@ -77,7 +77,7 @@ var controller = {
     getAll: getAll,
     deleteAll: deleteAll,
     getById: getById,
-    deleteById: deleteById,
+    deleteById: deleteById
 }
 
 module.exports = controller;

@@ -1,9 +1,9 @@
 var Hapi        = require('hapi');
-var dbOpts      = require('./config.js').mongo;
+var mongoConfig      = require('./config.js').mongo;
 var Mongoose    = require('mongoose');
 var server      = new Hapi.Server();
 
-Mongoose.connect(dbOpts.url);
+Mongoose.connect(mongoConfig.url);
 
 server.connection({
     port: parseInt(process.env.PORT) || 3000,
