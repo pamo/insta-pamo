@@ -28,10 +28,10 @@ var transformDescription = function(description){
 }
 
 var savePhoto = function(data){
-  photo = new Photo(data);
-  photo.update(function (err) {
+  photo = new Photo();
+  photo.update(data, {upsert: true}, function (err) {
     if (!err) {
-      console.log('Saved new photo!', photo);
+      console.log('Saved new photo!', photo.caption.text);
     } else {
       console.log('Error saving photo', err);
     }
