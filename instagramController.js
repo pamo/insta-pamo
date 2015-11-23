@@ -11,16 +11,15 @@ var fetch = function(request, reply){
 }
 var getNextPage = function(err, medias, pagination, remaining, limit){
   if(err) {
-      console.log(err);
-    } else if(pagination.next){
-      for (var i = 0; i < medias.length; i++){
-	 if(medias[i]['tags'].indexOf(instaConfig.query.tag) > -1){
-	   console.log(medias[i]);
-	   savePhoto(medias[i]);
-	 }
-       }
-       pagination.next(getNextPage);
+    console.log(err);
+  } else if(pagination.next){
+    for (var i = 0; i < medias.length; i++){
+      if(medias[i]['tags'].indexOf(instaConfig.query.tag) > -1){
+        savePhoto(medias[i]);
+      }
     }
+    pagination.next(getNextPage);
+  }
 
 }
 
@@ -29,20 +28,19 @@ var transformDescription = function(description){
 }
 
 var savePhoto = function(data){
-   photo = new Photo(data);
-
-   photo.save(function (err) {
+  photo = new Photo(data);
+  photo.update(function (err) {
     if (!err) {
       console.log('Saved new photo!', photo);
     } else {
-      console.log('Internal MongoDB error', err);
+      console.log('Error saving photo', err);
     }
-   });
+  });
 }
 
 
 var instagramController = {
-    fetchAndSave: fetch
+  fetchAndSave: fetch
 }
 
 module.exports = instagramController;
