@@ -29,13 +29,12 @@ var transformDescription = function(description){
 
 var savePhoto = function(data){
   photo = new Photo();
-  photo.update({id: data.id}, data, {upsert: true}, function (err) {
-    if (!err) {
-      console.log('Saved new photo!', photo);
-    } else {
-      console.log('Error saving photo', err);
-    }
-  });
+  var saveResult = photo.update({id: data.id}, data, {upsert: true});
+  if(!saveResult.hasWriteError()){
+    console.log('Saved', photo);
+  } else {
+    console.log(saveResult.writeError);
+  }
 }
 
 
