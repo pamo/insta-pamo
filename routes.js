@@ -16,8 +16,8 @@ exports.register = function(server, options, next) {
 
   server.route({
     method: 'GET',
-    path: '/fetchAndSaveFromInstagram',
-    handler: instagramController.fetchAndSave
+    path: '/save/cafefront',
+    handler: instagramController.saveCafeFronts
   });
 
   next();

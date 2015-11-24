@@ -1,5 +1,6 @@
 var Mongoose = require('mongoose');
 var Schema = Mongoose.Schema;
+var _ = require('lodash');
 
 var schema = new Schema({
   tags: [],
@@ -25,6 +26,7 @@ var schema = new Schema({
       url: String
     }
   },
+  description: String,
   caption: {
     text: String
   },
@@ -33,6 +35,11 @@ var schema = new Schema({
     unique: true
   }
 });
+
+
+var transformDescription = function(description){
+  return _.dropRight(_.drop(description.slice(13, description.length).split('.')));
+}
 
 schema.set('toJSON', {
   transform: function(doc, ret, options) {
@@ -43,7 +50,7 @@ schema.set('toJSON', {
       id: ret.location.id,
       imageSrc: ret.images.standard_resolution,
       url: ret.link,
-      description: ret.caption.text
+      description: transformDescription(ret.caption.text)
     }
   }
 });
