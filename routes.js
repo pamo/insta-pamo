@@ -20,6 +20,12 @@ exports.register = function(server, options, next) {
     handler: instagramController.saveCafeFronts
   });
 
+  server.route({
+    method: 'GET',
+    path: '/tag/{tag}',
+    handler: instagramController.fetchTagged
+  });
+
   next();
 };
 

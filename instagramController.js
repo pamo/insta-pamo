@@ -33,8 +33,25 @@ var savePhoto = function(data){
   });
 }
 
+function findByTag(request, reply){
+  var results = [];
+  instagram.user_media_recent(instaConfig.query.user_id, function(err, medias, pagination, remaining, limit){
+    if(err) reply(err);
+    else if(pagination.next){
+      for (var i = 0; i < medias.length; i++){
+        if(medias[i]['tags'].indexOf(request.params.tag) > -1){
+          results.push(medias[i]);
+        }
+      }
+      pagination.next(getNextPage);
+      reply(results);
+    }
+  });
+}
+
 var instagramController = {
-  saveCafeFronts: fetchAndSaveCafeFronts
+  saveCafeFronts: fetchAndSaveCafeFronts,
+  fetchTagged: findByTag
 }
 
 module.exports = instagramController;
