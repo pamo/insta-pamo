@@ -1,0 +1,7 @@
+{{#each photos}}
+<div class="instagram-media">
+    <p class="location"><a href="https://www.instagram.com/explore/locations/{{location.id}}/" target="_blank"><i class="fa fa-map-marker"></i>{{location.name}}</a> <a href="http://maps.google.com/?q={{location.latitude}},{{location.longitude}}" target="_blank"><i class="fa fa-map"></i></a></p>
+    <a href="{{link}}" target="_blank"><img src="{{images.standard_resolution.url}}"></a>
+    {{description}}
+</div>
+{{/each}}

@@ -4,7 +4,8 @@ var getAll = function(request, reply){
   Photo
   .find({}, function (err, photos) {
     if (!err) {
-      reply(photos);
+      reply.view('index', { photos: photos });
+    //   reply(photos);
     } else {
       reply(err);
     }
