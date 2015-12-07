@@ -1,1 +1,1 @@
-web: node index.js
+web: node --harmony --use_strict index.js
