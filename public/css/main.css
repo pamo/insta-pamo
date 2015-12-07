@@ -1,0 +1,43 @@
+.main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    -ms-align-items: space-around;
+    align-items: space-around;
+}
+.instagram-media {
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5), 0 1px 10px 0 rgba(0, 0, 0, 0.15);
+    padding: 0.5em;
+    margin: 0.5em 0;
+
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+@media all and (min-width: 40em) {
+  .instagram-media {
+    width: 50%;
+  }
+}
+@media all and (min-width: 60em) {
+  .instagram-media {
+    width: 30%;
+  }
+}
+
+.instagram-media img {
+    width: 100%;
+    height: auto;
+    flex: 1 0 auto;
+    margin: 0.5em 0;
+}
+.instagram-media a {
+    text-decoration: none;
+    align-self: flex-start;
+}

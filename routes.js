@@ -7,7 +7,7 @@ module.exports = [{
     handler: controller.getAll
 }, {
     method: 'GET',
-    path: '/{id}',
+    path: '/id/{id}',
     handler: controller.getById
 }, {
     method: 'GET',
@@ -17,4 +17,10 @@ module.exports = [{
     method: 'GET',
     path: '/tag/{tag}',
     handler: instagramController.fetchTagged
+}, {
+    method: 'GET',
+    path: '/{filename*}',
+    handler: function(request, reply) {
+        reply.file(request.params.filename);
+    }
 }];
