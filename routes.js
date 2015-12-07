@@ -4,7 +4,7 @@ var instagramController = require('./instagramController.js');
 module.exports = [{
     method: 'GET',
     path: '/',
-    handler: controller.getAll
+    handler: controller.renderAll
 }, {
     method: 'GET',
     path: '/id/{id}',
@@ -13,6 +13,10 @@ module.exports = [{
     method: 'GET',
     path: '/save/cafefront',
     handler: instagramController.saveCafeFronts
+}, {
+    method: 'GET',
+    path: '/tag/cafefront',
+    handler: controller.getAll
 }, {
     method: 'GET',
     path: '/tag/{tag}',
