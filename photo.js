@@ -43,14 +43,17 @@ var schema = new Schema({
   }
 });
 
-var captionTemplate = _.spread(function(neighborhood, drink) {
-  return neighborhood + '. ' + drink + '.';
+var captionTemplate = _.spread(function(cafeName, location, drink) {
+  var locality = _.first(location.split(','));
+  return {
+    locality: locality,
+    municipality: _.takeRight(location.split(','), 2),
+    drink: drink
+  };
 });
 
 var transformDescription = function(description) {
-  var descriptionSliced = _.dropRight(description.slice(13).split('.'));
-  var withoutCafeName = _.drop(descriptionSliced);
-  return captionTemplate(withoutCafeName);
+  return captionTemplate(description.split('.'));
 }
 
 var transformObject = function(ret) {
@@ -64,7 +67,7 @@ var transformObject = function(ret) {
     id: ret.location.id,
     imageSrc: ret.images.standard_resolution,
     url: ret.link,
-    description: transformDescription(ret.caption.text)
+    description: transformDescription(ret.caption.text),
   };
 }
 

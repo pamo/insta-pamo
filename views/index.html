@@ -2,6 +2,7 @@
 <div class="instagram-media">
     <p class="location"><a href="https://www.instagram.com/explore/locations/{{id}}/" target="_blank"><i class="fa fa-map-marker"></i>{{title}}</a> <a href="http://maps.google.com/?q={{coordinates.[1]}},{{coordinates.[0]}}" target="_blank"><i class="fa fa-map"></i></a></p>
     <a href="{{url}}" target="_blank"><img src="{{imageSrc.url}}"></a>
-    {{description}}
+    <p>{{description.locality}}, {{description.municipality}}. </p>
+    <p>{{description.drink}}.</p>
 </div>
 {{/each}}
