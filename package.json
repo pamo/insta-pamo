@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "env $(cat .env) ./node_modules/nodemon/bin/nodemon.js --harmony --use_strict",
-    "test": "test"
+    "start-dev": "env $(cat .env) ./node_modules/nodemon/bin/nodemon.js --harmony --use_strict & npm run watch-sass",
+    "sass": "node-sass --output-style compressed styles/index.scss -o public/css/",
+    "watch-sass": "./node_modules/nodemon/bin/nodemon.js -e scss -x \"npm run sass\""
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,7 @@
     "vision": "^4.0.1"
   },
   "devDependencies": {
+    "node-sass": "^3.4.2",
     "nodemon": "^1.3.7"
   }
 }
