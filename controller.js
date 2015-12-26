@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var Photo = require('./photo.js').Photo;
 
 var getAll = function(request, reply) {
@@ -14,8 +15,14 @@ var getAll = function(request, reply) {
 var renderAll = function(request, reply) {
   Photo.find({}, function(err, photos) {
     if (!err) {
+      var transformedPhotos = JSON.parse(JSON.stringify(photos));
+      var municipalities = _.uniq(_.pluck(transformedPhotos, 'description.municipality'), false, function(municipality){
+        return municipality[0] + ', ' + municipality[1];
+      });
+      
       reply.view('index', {
-        photos: JSON.parse(JSON.stringify(photos))
+        photos: transformedPhotos,
+        municipalities: municipalities
       });
     } else {
       reply(err);
