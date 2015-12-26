@@ -7,8 +7,8 @@ module.exports = [{
     handler: controller.renderAll
 }, {
     method: 'GET',
-    path: '/id/{id}',
-    handler: controller.getById
+    path: '/place/{place}',
+    handler: controller.getByPlace
 }, {
     method: 'GET',
     path: '/save/cafefront',

@@ -16,13 +16,13 @@ var renderAll = function(request, reply) {
   Photo.find({}, function(err, photos) {
     if (!err) {
       var transformedPhotos = JSON.parse(JSON.stringify(photos));
-      var municipalities = _.uniq(_.pluck(transformedPhotos, 'description.municipality'), false, function(municipality){
-        return municipality[0] + ', ' + municipality[1];
+      var municipalities = _.uniq(_.pluck(transformedPhotos, 'description.municipality'), false, function(municipality) {
+        return (municipality[0] + ', ' + municipality[1]).trim();
       });
-      
+
       reply.view('index', {
         photos: transformedPhotos,
-        municipalities: municipalities
+        municipalities: municipalities.sort()
       });
     } else {
       reply(err);
@@ -31,21 +31,28 @@ var renderAll = function(request, reply) {
     created_time: -1
   });
 }
-
-var getById = function(request, reply) {
-  Photo.findById(request.params.id, function(err, photo) {
-    if (!err) {
-      reply(photo);
-    } else {
-      reply(err);
-    }
-  });
+var getByPlace = function(request, reply) {
+  console.log(request.params.place);
+  Photo.find({
+      'caption.text': new RegExp(request.params.place, 'i')
+    },
+    function(err, photos) {
+      if (!err) {
+      var transformedPhotos = JSON.parse(JSON.stringify(photos));
+        reply.view('index', {
+          municipalities: request.params.place,
+          photos: transformedPhotos
+        });
+      } else {
+        reply(err);
+      }
+    });
 };
 
 var controller = {
   renderAll: renderAll,
   getAll: getAll,
-  getById: getById
+  getByPlace: getByPlace
 }
 
 module.exports = controller;
