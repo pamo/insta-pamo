@@ -22,7 +22,7 @@ var renderAll = function(request, reply) {
 
       reply.view('index', {
         photos: transformedPhotos,
-        municipalities: municipalities.sort()
+        places: municipalities.sort()
       });
     } else {
       reply(err);
@@ -32,15 +32,14 @@ var renderAll = function(request, reply) {
   });
 }
 var getByPlace = function(request, reply) {
-  console.log(request.params.place);
   Photo.find({
       'caption.text': new RegExp(request.params.place, 'i')
     },
     function(err, photos) {
       if (!err) {
       var transformedPhotos = JSON.parse(JSON.stringify(photos));
-        reply.view('index', {
-          municipalities: request.params.place,
+        reply.view('place', {
+          place: request.params.place,
           photos: transformedPhotos
         });
       } else {

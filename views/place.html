@@ -1,4 +1,6 @@
-<div class="main-container__lead">a <a href="http://likescoffee.com/words/2014/10/12/cafe-fronts.html">pet photo project</a>. {{photos.length}} cafes photographed and counting...</div>
+<div class="main-container__lead">
+  <h3>{{photos.length}} cafés in {{place}}</h3>
+</div>
 {{#each photos}}
 <div class="instagram-media">
     <p class="location"><a href="https://www.instagram.com/explore/locations/{{id}}/" target="_blank"><i class="fa fa-map-marker"></i>{{title}}</a> <a href="http://maps.google.com/?q={{coordinates.[1]}},{{coordinates.[0]}}" target="_blank"><i class="fa fa-map"></i></a></p>
