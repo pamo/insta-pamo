@@ -22,6 +22,7 @@ server.views({
         html: require('handlebars')
     },
     path: 'views',
+    partialsPath: 'views/partials',
     layoutPath: 'views/layouts',
     layout: 'default'
 });
