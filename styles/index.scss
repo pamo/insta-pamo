@@ -3,19 +3,29 @@ $base-spacing: 0.5em;
 $white: #FEFEFE;
 $primary-color: #00ADB5;
 $secondary-color: #222831;
-
 body {
   font-family: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   color: $white;
   background-color: $secondary-color;
 }
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
   padding: 0;
+}
+a {
+  text-decoration: none;
+  color: #4090db;
+  &:hover {
+    color: #20486d;
+  }
 }
 .header-container {
   margin: $base-spacing;
   padding: 0;
+  display: flex;
+  flex-flow: row;
   h1 {
     color: $primary-color;
     font-style: normal;
@@ -23,7 +33,29 @@ h1, h2, h3 {
     margin: 0;
     padding: 0;
   }
-
+}
+.nav {
+  &__trigger {
+    width: auto;
+    font-size: 1.5em;
+    border: 0;
+    background: none;
+  }
+  &__items {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: $white;
+  }
+  &__item {
+    list-style-type: none;
+    line-height: 2em;
+    padding-left: $base-spacing;
+    border-bottom: 0.1em solid rgba($secondary-color, 0.8);
+    a {
+      display: block;
+    }
+  }
 }
 .main-container {
   &__lead {
@@ -64,13 +96,6 @@ h1, h2, h3 {
     height: auto;
     flex: 1 0 auto;
     margin: $base-spacing 0;
-  }
-  a {
-    text-decoration: none;
-    color: #4090db;
-    &:hover {
-      color: #20486d;
-    }
   }
   i {
     margin-right: $base-spacing;

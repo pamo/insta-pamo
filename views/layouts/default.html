@@ -15,8 +15,17 @@
 
 <body>
   <header class="header-container">
+    <button class="nav__trigger"><i class="fa fa-globe"></i></button>
     <h1>Café Fronts</h1>
   </header>
+  <nav class="nav">
+    <ul class="nav__items">
+      <li class="nav__item"><a href="/">All</a></li>
+      {{#each places}}
+      <li class="nav__item"><a href="/place/{{this}}">{{this}}</a></li>
+      {{/each}}
+    </ul>
+  </nav>
   <main class="main-container">
     {{{content}}}
   </main>
