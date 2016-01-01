@@ -16,10 +16,7 @@ h3 {
 }
 a {
   text-decoration: none;
-  color: #4090db;
-  &:hover {
-    color: #20486d;
-  }
+  color: $primary-color;
 }
 .header-container {
   margin: $base-spacing;
@@ -35,6 +32,13 @@ a {
   }
 }
 .nav {
+  max-height: 0;
+  transition: max-height 0.9s;
+  overflow: hidden;
+  &--open {
+    max-height: 4000px;
+    transition: max-height 0.9s;
+  }
   &__trigger {
     width: auto;
     font-size: 1.5em;
@@ -45,15 +49,24 @@ a {
     width: 100%;
     margin: 0;
     padding: 0;
-    background: $white;
   }
   &__item {
+    text-align: center;
+    text-transform: uppercase;
     list-style-type: none;
     line-height: 2em;
-    padding-left: $base-spacing;
-    border-bottom: 0.1em solid rgba($secondary-color, 0.8);
+    border-bottom: 0.1em solid rgba($primary-color, 0.5);
+    background: $white;
     a {
+      padding: 0 $base-spacing;
       display: block;
+      background: $secondary-color;
+      height: 100%;
+      &:active,
+      &:focus,
+      &:hover {
+        background: rgba($secondary-color, 0.9);
+      }
     }
   }
 }
@@ -61,8 +74,11 @@ a {
   &__lead {
     flex-basis: 100%;
     margin: $base-spacing;
-    a {
-      color: $primary-color;
+  }
+  a {
+    color: #4090db;
+    &:hover {
+      color: #20486d;
     }
   }
   display: flex;

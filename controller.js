@@ -19,7 +19,6 @@ var renderAll = function(request, reply) {
       var municipalities = _.uniq(_.pluck(transformedPhotos, 'description.municipality'), false, function(municipality) {
         return (municipality[0] + ', ' + municipality[1]).trim();
       });
-
       reply.view('index', {
         photos: transformedPhotos,
         places: municipalities.sort()
