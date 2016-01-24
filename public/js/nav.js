@@ -1,5 +1,5 @@
 $(function() {
-    $(".nav__trigger").click(function(e) {
+    $(".nav__trigger").on('click touchend', function(e) {
         $(".nav").toggleClass("nav--open");
         e.preventDefault();
     });
