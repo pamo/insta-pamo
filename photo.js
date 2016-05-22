@@ -57,14 +57,22 @@ var transformDescription = function(description) {
 }
 
 var transformObject = function(ret) {
+  var coordinates, title, id;
+  var location = ret.location;
+  if(location) {
+    coordinates = [location.longitude, location.latitude];
+    title = location.name;
+    id = location.id;
+  }
+
   return {
     created_time: ret.created_time,
-    coordinates: [ret.location.longitude, ret.location.latitude],
+    coordinates: coordinates,
     geoLocation: {
-      coordinates: [ret.location.longitude, ret.location.latitude]
+      coordinates: coordinates
     },
-    title: ret.location.name,
-    id: ret.location.id,
+    title: title,
+    id: id,
     imageSrc: ret.images.standard_resolution,
     url: ret.link,
     description: transformDescription(ret.caption.text),
